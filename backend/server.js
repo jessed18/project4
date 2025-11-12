@@ -1,11 +1,14 @@
 // backend server
 const express = require('express');
-const session = require('express-session');  
-const bcrypt = require('bcryptjs');  
+const cors = require('cors');
+const session = require('express-session');
+const bcrypt = require('bcryptjs');
 require('dotenv').config();
 
 const db = require('./db');
+
 const app = express();
+
 
 app.use(cors({
     origin: 'https://localhost:3000',
