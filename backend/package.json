@@ -1,7 +1,7 @@
 {
   "name": "vexyn-backend",
   "version": "1.0.0",
-  "description": "Vexyn Backend API",
+  "description": "CodeQuest Backend API",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
