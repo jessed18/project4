@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api';
 import './Auth.css';
 
 function Login({ setUser }) {
@@ -16,11 +16,9 @@ function Login({ setUser }) {
         setLoading(true);
 
         try {
-            const response = await axios.post('/api/login', {
+            const response = await api.post('/api/login', {
                 username,
                 password
-            }, {
-                withCredentials: true
             });
 
             setUser(response.data.user);
@@ -59,7 +57,7 @@ function Login({ setUser }) {
                         />
                     </div>
 
-                    {error && <div classname="error-message">{error}</div>}
+                    {error && <div className="error-message">{error}</div>}
 
                     <button type = "submit" disabled={loading}>
                         {loading ? 'Loggin in...' : 'Login'}

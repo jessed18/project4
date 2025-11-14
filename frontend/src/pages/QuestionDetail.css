@@ -1,6 +1,6 @@
 .question-detail {
     min-height: 100vh;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #00d4ff 100%);
 }
 
 .dashboard-header {
@@ -13,7 +13,7 @@
 }
 
 .dashboard-header h1 {
-    color: #667eea;
+    color: #00d4ff;
     font-size: 28px;
 }
 
@@ -145,7 +145,7 @@
     padding: 20px;
     background: #f9f9f9;
     border-radius: 8px;
-    border-left: 4px solid #667eea;
+    border-left: 4px solid #00d4ff;
 }
 
 .answer-content {
@@ -206,12 +206,12 @@
 
 .post-answer-section textarea:focus {
     outline: none;
-    border-color: #667eea;
+    border-color: #00d4ff;
 }
 
 .post-answer-section button {
     padding: 12px 30px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #00d4ff 100%);
     color: white;
     border: none;
     border-radius: 8px;
@@ -230,3 +230,4 @@
     opacity: 0.6;
     cursor: not-allowed;
 }
+

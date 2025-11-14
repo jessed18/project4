@@ -1,6 +1,6 @@
 .dashboard {
     min-height: 100vh;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #00d4ff 100%);
 }
 
 .dashboard-header {
@@ -13,7 +13,7 @@
 }
 
 .dashboard-header h1 {
-    color: #667eea;
+    color: #00d4ff;
     font-size: 28px;
 }
 
@@ -43,7 +43,7 @@
 }
 
 .btn-ask {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #00d4ff 100%);
     color: white;
 }
 
@@ -106,7 +106,7 @@
 }
 
 .category-list li.active {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #00d4ff 100%);
     color: white;
 }
 
@@ -135,7 +135,7 @@
 .btn-primary {
     display: inline-block;
     padding: 12px 30px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #00d4ff 100%);
     color: white;
     text-decoration: none;
     border-radius: 8px;
@@ -210,7 +210,7 @@
 }
 
 .question-stats {
-    color: #667eea;
+    color: #00d4ff;
     font-weight: 600;
     font-size: 14px;
 }

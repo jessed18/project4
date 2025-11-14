@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api';
 import './Dashboard.css';
 
 function Dashboard({ user, logout }) {
@@ -16,8 +16,8 @@ function Dashboard({ user, logout }) {
     const loadData = async () => {
         try {
             const [categoriesRes, questionsRes] = await Promise.all([
-                axios.get('/api/categories'),
-                axios.get('/api/questions')
+                api.get('/api/categories'),
+                api.get('/api/questions')
             ]);
 
             setCategories(categoriesRes.data);
@@ -38,7 +38,7 @@ function Dashboard({ user, logout }) {
               ? `/api/questions?category_id=${categoryId}`
               :'/api/questions';
 
-            const response = await axios.get(url);
+            const response = await api.get(url);
             setQuestions(response.data);
         } catch (error) {
             console.error('Failed to filter:', error);
@@ -62,7 +62,7 @@ function Dashboard({ user, logout }) {
 
     return (
         <div className="dashboard">
-            <header classname="dashboard-header">
+            <header className="dashboard-header">
                 <h1>Vexyn</h1>
                 <div className="header-right">
                     <span className="username">Welcome, {user.username}!</span>
@@ -79,7 +79,7 @@ function Dashboard({ user, logout }) {
                             className={!selectedCategory ? 'active' : ''}
                             onClick={() => filterByCategory(null)}
                         >
-                          <span></span> All Questions
+                          All Questions
                         </li>
                         {categories.map(category => (
                             <li
@@ -87,7 +87,7 @@ function Dashboard({ user, logout }) {
                                 className = {selectedCategory === category.id ? 'active' : ''}
                                 onClick = {() => filterByCategory(category.id)}
                             >
-                                <span>{category.icon}</span> {category.name}
+                                {category.name}
                             </li>
                         ))}
                      </ul>
@@ -113,7 +113,7 @@ function Dashboard({ user, logout }) {
                                                 className="category-badge"
                                                 style={{backgroundColor: question.color}}
                                             >
-                                                {question.icon}{question.category_name}
+                                                {question.category_name}
                                             </span>
                                             <span className="question-date">{formatDate(question.created_at)}</span>
                                         </div>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api';
 import './AskQuestion.css';
 
 function AskQuestion({ user, logout }) {
@@ -18,7 +18,7 @@ function AskQuestion({ user, logout }) {
 
   const loadCategories = async () => {
     try {
-      const response = await axios.get('/api/categories');
+      const response = await api.get('/api/categories');
       setCategories(response.data);
       if (response.data.length > 0) {
         setCategoryId(response.data[0].id);
@@ -34,12 +34,10 @@ function AskQuestion({ user, logout }) {
     setLoading(true);
 
     try {
-      const response = await axios.post('/api/questions', {
+      const response = await api.post('/api/questions', {
         title,
         content,
         category_id: categoryId
-      }, {
-        withCredentials: true
       });
 
       navigate(`/question/${response.data.questionId}`);
@@ -74,7 +72,7 @@ function AskQuestion({ user, logout }) {
             >
               {categories.map(category => (
                 <option key={category.id} value={category.id}>
-                  {category.icon} {category.name}
+                  {category.name}
                 </option>
               ))}
             </select>
