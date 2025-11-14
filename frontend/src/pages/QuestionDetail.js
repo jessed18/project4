@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import api from '../api';
+import axios from 'axios';
 import './QuestionDetail.css';
 
 function QuestionDetail({ user, logout }) {
@@ -11,13 +11,9 @@ function QuestionDetail({ user, logout }) {
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
 
-  useEffect(() => {
-    loadQuestion();
-  }, [id]);
-
-  const loadQuestion = async () => {
+  const loadQuestion = useCallback(async () => {
     try {
-      const response = await api.get(`/api/questions/${id}`);
+      const response = await axios.get(`/api/questions/${id}`);
       setQuestion(response.data.question);
       setAnswers(response.data.answers);
     } catch (error) {
@@ -25,7 +21,11 @@ function QuestionDetail({ user, logout }) {
     } finally {
       setLoading(false);
     }
-  };
+  }, [id]);
+
+  useEffect(() => {
+    loadQuestion();
+  }, [id, loadQuestion]);
 
   const handleSubmitAnswer = async (e) => {
     e.preventDefault();
@@ -37,9 +37,11 @@ function QuestionDetail({ user, logout }) {
     setSubmitting(true);
 
     try {
-      await api.post('/api/answers', {
+      await axios.post('/api/answers', {
         content: newAnswer,
         question_id: id
+      }, {
+        withCredentials: true
       });
 
       loadQuestion();
@@ -89,7 +91,7 @@ function QuestionDetail({ user, logout }) {
               className="category-badge" 
               style={{ backgroundColor: question.color }}
             >
-              {question.category_name}
+              {question.icon} {question.category_name}
             </span>
             <span className="date">{formatDate(question.created_at)}</span>
           </div>
