@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
-import axios from 'axios';
+import api from './api';
 import './App.css';
 
 import Login from './pages/Login';
@@ -19,9 +19,7 @@ function App() {
 
      const checkAuth = async () => {
         try {
-            const response = await axios.get('/api/check-auth', {
-                withCredentials:true
-            });
+            const response = await api.get('/api/check-auth');
 
             if (response.data.isAuthenticated) {
                 setUser(response.data.user);
@@ -35,7 +33,7 @@ function App() {
 
      const logout = async () => {
         try {
-            await axios.post('/api/logout', {}, { withCredentials: true });
+            await api.post('/api/logout', {});
             setUser(null);
         } catch (error) {
             console.error('Logout failed:', error);
@@ -47,7 +45,7 @@ function App() {
      }
 
      return (
-        <BrowserRouter>
+        <BrowserRouter basename={process.env.PUBLIC_URL || ''}>
         <Routes>
             <Route path="/login" element={
             user ? <Navigate to="/dashboard" /> : <Login setUser={setUser} />
