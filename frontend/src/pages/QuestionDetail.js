@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api';
 import './QuestionDetail.css';
 
 function QuestionDetail({ user, logout }) {
@@ -13,7 +13,7 @@ function QuestionDetail({ user, logout }) {
 
   const loadQuestion = useCallback(async () => {
     try {
-      const response = await axios.get(`/api/questions/${id}`);
+      const response = await api.get(`/api/questions/${id}`);
       setQuestion(response.data.question);
       setAnswers(response.data.answers);
     } catch (error) {
@@ -37,11 +37,9 @@ function QuestionDetail({ user, logout }) {
     setSubmitting(true);
 
     try {
-      await axios.post('/api/answers', {
+      await api.post('/api/answers', {
         content: newAnswer,
         question_id: id
-      }, {
-        withCredentials: true
       });
 
       loadQuestion();
