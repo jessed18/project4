@@ -64,7 +64,7 @@ Before you begin, ensure you have the following installed:
 - npm (Node Package Manager)
 - MySQL Server (v8.0 or higher)
 
-## 🚀 Installation & Setup
+## Installation & Setup
 
 ### 1. Clone the Repository
 
@@ -85,7 +85,7 @@ cd project4
    DB_HOST=localhost
    DB_USER=root
    DB_PASSWORD=your_mysql_password
-   DB_NAME=jess_schema
+   DB_NAME=schema_name
    PORT=5001
    SESSION_SECRET=your_random_secret_key_here
    ```
@@ -167,7 +167,7 @@ The database includes the following tables:
 - **questions**: User-submitted questions
 - **answers**: Answers to questions
 
-## 🔌 API Endpoints
+## API Endpoints
 
 ### Authentication
 - `POST /api/register` - Register a new user
@@ -187,7 +187,7 @@ The database includes the following tables:
 ### Answers
 - `POST /api/answers` - Post an answer (requires authentication)
 
-## 🎨 Features Implementation
+## Features Implementation
 
 ### Login Screen
 - Username and password fields
