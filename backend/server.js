@@ -21,7 +21,10 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     cookie: {
-        maxAge: 1000 * 60 * 60 * 24 // 1 day
+        maxAge: 1000 * 60 * 60 * 24, // 1 day
+        httpOnly: true,
+        secure: false, // set to true in production with HTTPS
+        sameSite: 'lax'
     }
 }));
 
@@ -60,8 +63,8 @@ app.post('/api/register', async (req, res) => {
             user: {id: result.insertId, username}  
         });
     } catch (error) {
-        console.error(error);
-        res.status(500).json({message: 'server error'});
+        console.error('Registration error:', error);
+        res.status(500).json({message: 'server error', error: error.message});
     }
 });
 
@@ -108,14 +111,30 @@ app.post('/api/logout', (req,res) => {
     res.json({message: 'Logged out successfully'});
 });
 
-app.get('/api/check-auth',(req,res) => {
-    if (req.session.userId) {
-        res.json({
-            isAuthenticated: true,
-            user: {id: req.session.userId, username: req.session.username}
-        });
-    } else {
-        res.json({isAuthenticated: false});
+app.get('/api/check-auth', async (req,res) => {
+    try {
+        if (req.session.userId) {
+            res.json({
+                isAuthenticated: true,
+                user: {id: req.session.userId, username: req.session.username}
+            });
+        } else {
+            res.json({isAuthenticated: false});
+        }
+    } catch (error) {
+        console.error('Check auth error:', error);
+        res.status(500).json({message: 'Server error'});
+    }
+});
+
+// test database connection
+app.get('/api/test-db', async (req, res) => {
+    try {
+        const [result] = await db.query('SELECT 1 as test');
+        res.json({success: true, message: 'Database connected!', result});
+    } catch (error) {
+        console.error('Database connection error:', error);
+        res.status(500).json({success: false, error: error.message});
     }
 });
 
@@ -135,7 +154,7 @@ app.get('/api/questions', async (req, res) => {
         const { category_id } = req.query;
 
         let query = `
-          SELECT q.*, c.name as category_name, c.icon, c.color,
+          SELECT q.*, c.name as category_name, c.color,
           (SELECT COUNT(*) FROM answers WHERE question_id = q.id) as answer_count
           FROM questions q
           JOIN categories c ON q.category_id = c.id

@@ -49,12 +49,22 @@ CREATE TABLE answers (
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
-INSERT INTO categories (name, icon, color) VALUES
-('JavaScript', 'icon', '#f7df1e'),
-('React', 'icon️', '#61dafb'),
-('Node.js', 'icon', '#339933'),
-('CSS', 'icon', '#1572b6'),
-('Python', 'icon', '#3776ab');
+INSERT INTO categories (name, color) VALUES
+('JavaScript', '#f7df1e'),
+('React', '#61dafb'),
+('Node.js', '#339933'),
+('CSS', '#1572b6'),
+('Python', '#3776ab'),
+('HTML', '#e34c26'),
+('Java', '#ed8b00'),
+('C++', '#00599c'),
+('TypeScript', '#3178c6'),
+('Vue.js', '#4fc08d'),
+('Angular', '#dd0031'),
+('SQL', '#336791'),
+('PHP', '#777bb4'),
+('Ruby', '#cc342d'),
+('Go', '#00add8');
 
 -- insert demo user (password is 'demo123' hashed with bcrypt)
 INSERT INTO users (username, password) VALUES
@@ -67,7 +77,7 @@ INSERT INTO questions (title, content, category_id, user_id, username) VALUES
 ('What is useState hook?', 'Can someone explain how useState works in React?', 2, 1, 'demo_user'),
 ('Best way to learn JavaScript?', 'I am new to programming. What is the best way to start with JavaScript?', 1, 1, 'demo_user');
 
--- Insert answers
+-- insert answers
 
 INSERT INTO answers (content, question_id, user_id, username) VALUES
 ('You can use flexbox! Just add display: flex; justify-content: center; align-items: center; to the parent container.', 1, 1, 'demo_user'),
