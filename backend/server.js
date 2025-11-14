@@ -9,22 +9,27 @@ const db = require('./db');
 
 const app = express();
 
-
+// updated CORS for production
 app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: [
+        'http://localhost:3000',
+        'https://jessedeguzman.github.io'
+    ],
     credentials: true
 }));
 
 app.use(express.json());
+
+// updated session config for production
 app.use(session({
-    secret: process.env.SESSION_SECRET,
+    secret: process.env.SESSION_SECRET || 'dev-secret-change-in-production',
     resave: false,
     saveUninitialized: false,
     cookie: {
         maxAge: 1000 * 60 * 60 * 24, // 1 day
         httpOnly: true,
-        secure: false, // set to true in production with HTTPS
-        sameSite: 'lax'
+        secure: process.env.NODE_ENV === 'production', // true in production with HTTPS
+        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax'
     }
 }));
 
@@ -264,7 +269,8 @@ app.post('/api/answers', async (req, res) => {
     }
 });
 
-const PORT = process.env.PORT || 5000;
+// Updated PORT - uses environment variable
+const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+    console.log(`Server running on port ${PORT}`);
 });
